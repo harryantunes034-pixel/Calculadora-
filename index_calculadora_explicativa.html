@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Explicativa</title>
+<style>
+body{
+  margin:0;
+  padding:20px;
+  font-family: "Trebuchet MS", sans-serif;
+  background:#fdfcf7;
+  background-image:
+    linear-gradient(to right, rgba(255,0,0,.18) 0, rgba(255,0,0,.18) 2px, transparent 2px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 31px, #bcd3ff 31px, #bcd3ff 32px);
+}
+.container{
+  max-width:800px;
+  margin:auto;
+  background:rgba(255,255,255,.9);
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+h1{text-align:center}
+input,select,button{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  font-size:16px;
+}
+button{
+  cursor:pointer;
+}
+#passos{
+  margin-top:20px;
+  background:white;
+  padding:15px;
+  border-left:4px solid red;
+  white-space:pre-wrap;
+  line-height:1.8;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📒 Calculadora Explicativa</h1>
+
+<input type="number" id="a" placeholder="Primeiro valor">
+<select id="op">
+  <option value="+">Soma (+)</option>
+  <option value="-">Subtração (-)</option>
+  <option value="*">Multiplicação (×)</option>
+  <option value="/">Divisão (÷)</option>
+  <option value="%">Porcentagem (% de)</option>
+</select>
+<input type="number" id="b" placeholder="Segundo valor">
+
+<button onclick="calcular()">Resolver Passo a Passo</button>
+
+<div id="passos">Digite os valores e clique em resolver.</div>
+</div>
+
+<script>
+function calcular(){
+ const a = parseFloat(document.getElementById('a').value);
+ const b = parseFloat(document.getElementById('b').value);
+ const op = document.getElementById('op').value;
+
+ if(isNaN(a)||isNaN(b)){
+   alert('Preencha os dois valores.');
+   return;
+ }
+
+ let texto='';
+ let r=0;
+
+ switch(op){
+   case '+':
+     r=a+b;
+     texto=`PASSO 1:\n${a} + ${b}\n\nPASSO 2:\nSomamos os valores.\n\n${a} + ${b} = ${r}\n\nRESULTADO FINAL: ${r}`;
+     break;
+
+   case '-':
+     r=a-b;
+     texto=`PASSO 1:\n${a} - ${b}\n\nPASSO 2:\nSubtraímos ${b} de ${a}.\n\n${a} - ${b} = ${r}\n\nRESULTADO FINAL: ${r}`;
+     break;
+
+   case '*':
+     r=a*b;
+     texto=`PASSO 1:\n${a} × ${b}\n\nPASSO 2:\nMultiplicamos os valores.\n\n${a} × ${b} = ${r}\n\nRESULTADO FINAL: ${r}`;
+     break;
+
+   case '/':
+     if(b===0){alert('Não é possível dividir por zero.'); return;}
+     r=a/b;
+     texto=`PASSO 1:\n${a} ÷ ${b}\n\nPASSO 2:\nDividimos ${a} por ${b}.\n\n${a} ÷ ${b} = ${r}\n\nRESULTADO FINAL: ${r}`;
+     break;
+
+   case '%':
+     r=(a/100)*b;
+     texto=`PASSO 1:\n${a}% = ${a} ÷ 100\n\n${a} ÷ 100 = ${(a/100)}\n\nPASSO 2:\nMultiplicamos por ${b}\n\n${(a/100)} × ${b} = ${r}\n\nRESULTADO FINAL: ${r}`;
+     break;
+ }
+
+ document.getElementById('passos').textContent=texto;
+}
+</script>
+</body>
+</html>
